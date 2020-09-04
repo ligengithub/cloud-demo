@@ -1,0 +1,73 @@
+server:
+  port: 7032
+  servlet:
+    context-path: /app1
+
+
+spring:
+  application:
+    name: ${APPLICATION_NAME:app1}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.16.10.139:8847,10.16.10.139:8848,10.16.10.139:8849
+        service: ${spring.application.name}
+        namespace: 5c97c660-9a89-48a5-b2f3-cbd217fab4da
+        ip: ${SERVICE_IP:10.200.0.183}
+      config:
+        server-addr: 10.16.10.139:8847,10.16.10.139:8848,10.16.10.139:8849
+        file-extension: yml
+        namespace: 5c97c660-9a89-48a5-b2f3-cbd217fab4da
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+    sentinel:
+      transport:
+        clientIp: 10.200.0.183
+        dashboard: 10.200.0.183:8004
+        port: 8720
+      filter:
+        enabled: true
+        url-patterns: /**
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 10.16.10.139:8848
+            dataId: ${spring.application.name}-flow-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+        ds2:
+          nacos:
+            server-addr: 10.16.10.139:8848
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: degrade
+        ds3:
+          nacos:
+            server-addr: 10.16.10.139:8848
+            dataId: ${spring.application.name}-param-flow-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: param-flow
+        ds4:
+          nacos:
+            server-addr: 10.16.10.139:8848
+            dataId: ${spring.application.name}-system-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: system
+        ds5:
+          nacos:
+            server-addr: 10.16.10.139:8848
+            dataId: ${spring.application.name}-auth-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: authority
+
+      log:
+        switch-pid: true
+
+sentinel-rule:
+  nacos:
+    namespace: 0375c66a-a0f1-453d-b134-92fb6c0c8405
