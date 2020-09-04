@@ -61,6 +61,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+        </dependency>
+
     </dependencies>
 
     <modules>
@@ -73,10 +79,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--毕业版本的SpringCloudAlibaba依赖 官方推荐使用-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
+                <version>2.2.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
